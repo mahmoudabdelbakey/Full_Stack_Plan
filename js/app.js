@@ -13,6 +13,7 @@ class AppState {
     this.activePhaseId = null;
     this.interviewPage = 1;
     this.interviewPageSize = 10;
+    this.expandedPhases = new Set();
   }
 
   save() {
@@ -134,6 +135,7 @@ function navigateTo(route) {
 function renderActiveView() {
   const container = document.getElementById("mainContainer");
   if (!container) return;
+  const savedScroll = window.scrollY;
 
   const navPhaseCount = document.getElementById("navPhaseCount");
   if (navPhaseCount && state.data.phases) navPhaseCount.textContent = state.data.phases.length;
@@ -180,6 +182,12 @@ function renderActiveView() {
       break;
     default:
       renderDashboard(container);
+  }
+
+  if (savedScroll > 0) {
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: savedScroll, behavior: "instant" });
+    });
   }
 }
 
@@ -356,7 +364,14 @@ function renderRoadmap(container) {
     header.addEventListener("click", (e) => {
       if (e.target.closest("button") || e.target.closest("select")) return;
       const card = header.closest(".phase-card");
+      if (!card) return;
+      const phaseNum = parseInt(card.id.replace("phase-card-", ""));
       card.classList.toggle("expanded");
+      if (card.classList.contains("expanded")) {
+        state.expandedPhases.add(phaseNum);
+      } else {
+        state.expandedPhases.delete(phaseNum);
+      }
     });
   });
 
@@ -516,9 +531,10 @@ function renderPhaseCard(phase) {
   const totalTopics = phase.topics ? phase.topics.length : 0;
   const completedTopics = phase.topics ? phase.topics.filter(t => t.status === "completed").length : 0;
   const progressPercent = totalTopics > 0 ? Math.round((completedTopics / totalTopics) * 100) : 0;
+  const isExpanded = state.expandedPhases.has(phase.number);
 
   return `
-    <article class="phase-card" id="phase-card-${phase.number}">
+    <article class="phase-card ${isExpanded ? "expanded" : ""}" id="phase-card-${phase.number}">
       <div class="phase-card-header">
         <div class="phase-header-left">
           <span class="phase-badge">Phase ${phase.number}</span>
@@ -1578,6 +1594,7 @@ function openTopicModal(phaseNumber, topicId) {
 
   state.activePhaseId = phaseNumber;
   state.activeTopic = topic;
+  state.expandedPhases.add(phaseNumber);
 
   const modal = document.getElementById("topicModalBackdrop");
   const modalTitle = document.getElementById("modalTopicTitle");
@@ -1705,6 +1722,36 @@ function closeTopicModal() {
   state.activePhaseId = null;
 }
 
+function updatePhaseCardMetrics(phaseNumber) {
+  if (phaseNumber === null || phaseNumber === undefined) return;
+  const phase = state.data.phases.find(p => p.number === phaseNumber);
+  if (!phase) return;
+  const totalTopics = phase.topics ? phase.topics.length : 0;
+  const completedTopics = phase.topics ? phase.topics.filter(t => t.status === "completed").length : 0;
+  const progressPercent = totalTopics > 0 ? Math.round((completedTopics / totalTopics) * 100) : 0;
+
+  const card = document.getElementById(`phase-card-${phase.number}`);
+  if (card) {
+    const pill = card.querySelector(".phase-progress-pill");
+    if (pill) pill.textContent = `${progressPercent}%`;
+
+    const meta = card.querySelector(".phase-meta");
+    if (meta) {
+      const spans = meta.querySelectorAll("span");
+      if (spans.length >= 5) {
+        spans[4].textContent = `${completedTopics} / ${totalTopics} topics completed`;
+      }
+    }
+  }
+
+  // Also update overall dashboard progress bar if present
+  const m = state.getMetrics();
+  const overallBar = document.querySelector(".progress-bar-fill");
+  if (overallBar && m.totalTopics > 0) {
+    overallBar.style.width = `${m.overallProgress}%`;
+  }
+}
+
 function updateTopicStatus(phaseNumber, topicId, newStatus) {
   const phase = state.data.phases.find(p => p.number === phaseNumber);
   if (!phase || !phase.topics) return;
@@ -1714,7 +1761,10 @@ function updateTopicStatus(phaseNumber, topicId, newStatus) {
   topic.status = newStatus;
   state.save();
   showToast(`Updated "${topic.title}" to ${newStatus}`);
-  renderActiveView();
+
+  // Update in-place without destroying DOM, scrolling, or collapsing the phase!
+  state.expandedPhases.add(phaseNumber);
+  updatePhaseCardMetrics(phaseNumber);
 }
 
 /* ==========================================================================
@@ -1995,9 +2045,27 @@ function init() {
     }
 
     state.save();
-    showToast(`Saved "${state.activeTopic.title}"`);
-    closeTopicModal();
-    renderActiveView();
+    showToast(`Saved "${state.activeTopic.title}" (Completed)`);
+
+    // Update in-place: synchronize underlying table select and phase metrics
+    const tableSelect = document.querySelector(`.quick-topic-status-select[data-topic="${state.activeTopic.id}"]`);
+    if (tableSelect) tableSelect.value = state.activeTopic.status;
+    updatePhaseCardMetrics(state.activePhaseId);
+
+    // Keep the user right on this topic so they don't get kicked out!
+  });
+
+  // Also auto-save immediately whenever status dropdown inside modal changes
+  const modalTopicStatusSelect = document.getElementById("modalTopicStatusSelect");
+  modalTopicStatusSelect?.addEventListener("change", () => {
+    if (!state.activeTopic) return;
+    state.activeTopic.status = modalTopicStatusSelect.value;
+    state.save();
+    showToast(`Status updated to ${modalTopicStatusSelect.value}`);
+
+    const tableSelect = document.querySelector(`.quick-topic-status-select[data-topic="${state.activeTopic.id}"]`);
+    if (tableSelect) tableSelect.value = state.activeTopic.status;
+    updatePhaseCardMetrics(state.activePhaseId);
   });
 
   document.getElementById("modalAddNoteBtn")?.addEventListener("click", () => {
