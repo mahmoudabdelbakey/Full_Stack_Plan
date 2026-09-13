@@ -1526,3 +1526,262 @@ code, pre {
   color: var(--accent);
   background-color: transparent;
 }
+
+/* ==========================================================================
+   Comprehensive Mobile Responsive Enhancements (< 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Layout & Container on Mobile */
+  .content-container {
+    padding: 12px;
+  }
+
+  .topbar {
+    padding: 0 12px;
+  }
+
+  .search-container {
+    width: 160px;
+  }
+
+  .page-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .page-header > div:last-child {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .page-header > div:last-child button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Phase Card on Mobile */
+  .phase-card {
+    border-radius: var(--radius-sm);
+  }
+
+  .phase-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .phase-header-left {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .phase-title-group {
+    width: 100%;
+  }
+
+  .phase-title {
+    font-size: 0.9375rem;
+    line-height: 1.3;
+  }
+
+  .phase-meta {
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 0.6875rem;
+  }
+
+  .phase-header-right {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .phase-body {
+    padding: 12px 14px;
+  }
+
+  /* Topics Table Converted to Touch-Friendly Mobile Cards */
+  .topics-table {
+    display: block;
+    background: transparent;
+    border: none;
+    overflow: visible;
+  }
+
+  .topics-table thead {
+    display: none; /* Hide headers on mobile */
+  }
+
+  .topics-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .topics-table tr {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .topics-table td {
+    padding: 0;
+    border: none;
+    font-size: 0.8125rem;
+    text-align: left !important;
+  }
+
+  /* 1. Topic Title */
+  .topics-table td:nth-child(1) {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  /* 2. Subtopics */
+  .topics-table td.subtopics-cell {
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  /* 3. Difficulty Badge */
+  .topics-table td:nth-child(3) {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .topics-table td:nth-child(3) span {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-surface-secondary);
+    border: 1px solid var(--border-color);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  /* 4. Status Selector */
+  .topics-table td:nth-child(4) {
+    width: 100%;
+  }
+
+  .topics-table td:nth-child(4) select {
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 0.8125rem;
+    background-color: var(--bg-surface-secondary);
+  }
+
+  /* 5. Action Buttons (Details & Edit) */
+  .topics-table td:nth-child(5) {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-subtle);
+  }
+
+  .topics-table td:nth-child(5) button {
+    flex: 1;
+    justify-content: center;
+    padding: 7px 12px;
+    font-size: 0.75rem;
+  }
+
+  /* Projects & Capstone Mobile Optimization */
+  .projects-grid {
+    gap: 16px;
+  }
+
+  .project-card {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .project-header > div:last-child {
+    width: 100%;
+  }
+
+  .project-header > div:last-child button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .project-title {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .project-repo-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 12px;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+
+  .project-repo-box > div {
+    width: 100%;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+
+  .project-repo-box a {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    font-size: 0.75rem;
+  }
+
+  .task-checkbox-row {
+    align-items: flex-start;
+    word-break: break-word;
+  }
+
+  .task-checkbox-row input[type="checkbox"] {
+    margin-top: 3px;
+  }
+
+  /* Modal Dialogs on Mobile */
+  .modal-container {
+    max-width: 95vw !important;
+    padding: 16px !important;
+    margin: 10px auto;
+  }
+
+  .modal-footer {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .modal-footer > div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
