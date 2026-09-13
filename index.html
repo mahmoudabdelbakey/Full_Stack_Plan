@@ -88,9 +88,8 @@
         </div>
         <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-tertiary); display: flex; flex-direction: column; gap: 4px;">
           <span>&copy; Mahmoud Abd_Elbakey</span>
-          <a href="https://www.linkedin.com/in/mahmoud-abd-elbakey" target="_blank" rel="noopener noreferrer" style="color: var(--accent); display: inline-flex; align-items: center; gap: 4px;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-            LinkedIn Profile
+          <a href="https://www.linkedin.com/in/mahmoud-abd-elbakey" target="_blank" rel="noopener noreferrer" class="linkedin-badge-btn" aria-label="Mahmoud Abd_Elbakey LinkedIn" title="Mahmoud Abd_Elbakey on LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2" xmlns="http://www.w3.org/2000/svg"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.34a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28Z"/></svg>
           </a>
         </div>
       </div>
@@ -128,9 +127,8 @@
         <div class="footer-author">
           <span>&copy; Mahmoud Abd_Elbakey &bull; Junior Full Stack .NET Developer Platform</span>
         </div>
-        <a href="https://www.linkedin.com/in/mahmoud-abd-elbakey" target="_blank" rel="noopener noreferrer" class="footer-linkedin">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-          linkedin.com/in/mahmoud-abd-elbakey
+        <a href="https://www.linkedin.com/in/mahmoud-abd-elbakey" target="_blank" rel="noopener noreferrer" class="linkedin-badge-btn" aria-label="Mahmoud Abd_Elbakey LinkedIn" title="Mahmoud Abd_Elbakey on LinkedIn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#0A66C2" xmlns="http://www.w3.org/2000/svg"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.34a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28Z"/></svg>
         </a>
       </footer>
     </div>
@@ -165,6 +163,7 @@
           </select>
         </div>
         <div style="display: flex; gap: 8px;">
+          <button class="btn-secondary btn-sm" id="modalEditTopicContentBtn">Edit Topic</button>
           <button class="btn-secondary btn-sm" id="modalAddNoteBtn">Add Note</button>
           <button class="btn-primary btn-sm" id="modalSaveTopicBtn">Save Changes</button>
         </div>
@@ -214,9 +213,12 @@
           <textarea id="phaseFormObjectives" class="form-textarea" rows="3" placeholder="Understand containerization&#10;Write Dockerfiles"></textarea>
         </div>
       </form>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary btn-sm" id="cancelPhaseModalBtn">Cancel</button>
-        <button type="submit" form="phaseForm" class="btn-primary btn-sm">Save Phase</button>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <button type="button" class="btn-danger btn-sm" id="deletePhaseModalBtn" style="display: none;">Delete Phase</button>
+        <div style="display: flex; gap: 8px; margin-left: auto;">
+          <button type="button" class="btn-secondary btn-sm" id="cancelPhaseModalBtn">Cancel</button>
+          <button type="submit" form="phaseForm" class="btn-primary btn-sm">Save Phase</button>
+        </div>
       </div>
     </div>
   </div>
@@ -266,9 +268,12 @@
           <textarea id="topicFormExercise" class="form-textarea" rows="2" placeholder="Actionable exercise..."></textarea>
         </div>
       </form>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary btn-sm" id="cancelEditTopicModalBtn">Cancel</button>
-        <button type="submit" form="topicForm" class="btn-primary btn-sm">Save Topic</button>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <button type="button" class="btn-danger btn-sm" id="deleteTopicModalBtn" style="display: none;">Delete Topic</button>
+        <div style="display: flex; gap: 8px; margin-left: auto;">
+          <button type="button" class="btn-secondary btn-sm" id="cancelEditTopicModalBtn">Cancel</button>
+          <button type="submit" form="topicForm" class="btn-primary btn-sm">Save Topic</button>
+        </div>
       </div>
     </div>
   </div>
@@ -316,9 +321,12 @@
           <input type="number" id="skillFormProgress" class="form-input" min="0" max="100" value="0" />
         </div>
       </form>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary btn-sm" id="cancelSkillModalBtn">Cancel</button>
-        <button type="submit" form="skillForm" class="btn-primary btn-sm">Save Skill</button>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <button type="button" class="btn-danger btn-sm" id="deleteSkillModalBtn" style="display: none;">Delete Skill</button>
+        <div style="display: flex; gap: 8px; margin-left: auto;">
+          <button type="button" class="btn-secondary btn-sm" id="cancelSkillModalBtn">Cancel</button>
+          <button type="submit" form="skillForm" class="btn-primary btn-sm">Save Skill</button>
+        </div>
       </div>
     </div>
   </div>
@@ -360,9 +368,12 @@
           <input type="text" id="techFormNote" class="form-input" placeholder="e.g. Using for caching repository results" />
         </div>
       </form>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary btn-sm" id="cancelTechModalBtn">Cancel</button>
-        <button type="submit" form="techForm" class="btn-primary btn-sm">Save Technology</button>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <button type="button" class="btn-danger btn-sm" id="deleteTechModalBtn" style="display: none;">Delete Technology</button>
+        <div style="display: flex; gap: 8px; margin-left: auto;">
+          <button type="button" class="btn-secondary btn-sm" id="cancelTechModalBtn">Cancel</button>
+          <button type="submit" form="techForm" class="btn-primary btn-sm">Save Technology</button>
+        </div>
       </div>
     </div>
   </div>
@@ -388,9 +399,12 @@
           <textarea id="readinessFormText" class="form-textarea" required rows="3" placeholder="e.g. Can configure and run database migrations in production CI/CD"></textarea>
         </div>
       </form>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary btn-sm" id="cancelReadinessModalBtn">Cancel</button>
-        <button type="submit" form="readinessForm" class="btn-primary btn-sm">Save Criterion</button>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <button type="button" class="btn-danger btn-sm" id="deleteReadinessModalBtn" style="display: none;">Delete Criterion</button>
+        <div style="display: flex; gap: 8px; margin-left: auto;">
+          <button type="button" class="btn-secondary btn-sm" id="cancelReadinessModalBtn">Cancel</button>
+          <button type="submit" form="readinessForm" class="btn-primary btn-sm">Save Criterion</button>
+        </div>
       </div>
     </div>
   </div>

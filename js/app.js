@@ -335,12 +335,10 @@ function renderRoadmap(container) {
         <h1 class="page-title">Curriculum Roadmap (Phases 0 to 23)</h1>
         <p class="page-description">Complete curriculum from beginner foundations to full stack integration. Everything is editable in Edit Mode.</p>
       </div>
-      ${state.editMode ? `
-        <button class="btn-primary" id="addNewPhaseBtn">
+      <button class="btn-primary" id="addNewPhaseBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add New Phase
+          + Add New Phase
         </button>
-      ` : ""}
     </header>
 
     <div class="phase-list" id="phaseListContainer">
@@ -375,45 +373,35 @@ function renderRoadmap(container) {
     });
   });
 
-  if (state.editMode) {
-    const addPhaseBtn = container.querySelector("#addNewPhaseBtn");
-    if (addPhaseBtn) {
-      addPhaseBtn.addEventListener("click", () => openPhaseModal());
-    }
-
-    container.querySelectorAll(".edit-phase-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const phaseNum = parseInt(btn.getAttribute("data-phase"));
-        openPhaseModal(phaseNum);
-      });
-    });
-
-    container.querySelectorAll(".archive-phase-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const phaseNum = parseInt(btn.getAttribute("data-phase"));
-        archivePhase(phaseNum);
-      });
-    });
-
-    container.querySelectorAll(".add-topic-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const phaseNum = parseInt(btn.getAttribute("data-phase"));
-        openTopicEditModal(phaseNum);
-      });
-    });
-
-    container.querySelectorAll(".delete-topic-btn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const phaseNum = parseInt(btn.getAttribute("data-phase"));
-        const topicId = btn.getAttribute("data-topic");
-        archiveTopic(phaseNum, topicId);
-      });
-    });
+  const addPhaseBtn = container.querySelector("#addNewPhaseBtn");
+  if (addPhaseBtn) {
+    addPhaseBtn.addEventListener("click", () => openPhaseModal());
   }
+
+  container.querySelectorAll(".edit-phase-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const phaseNum = parseInt(btn.getAttribute("data-phase"));
+      openPhaseModal(phaseNum);
+    });
+  });
+
+  container.querySelectorAll(".add-topic-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const phaseNum = parseInt(btn.getAttribute("data-phase"));
+      openTopicEditModal(phaseNum);
+    });
+  });
+
+  container.querySelectorAll(".edit-topic-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const phaseNum = parseInt(btn.getAttribute("data-phase"));
+      const topicId = btn.getAttribute("data-topic");
+      openTopicEditModal(phaseNum, topicId);
+    });
+  });
 }
 
 function renderPhaseCard(phase) {
@@ -440,10 +428,7 @@ function renderPhaseCard(phase) {
 
         <div class="phase-header-right">
           <span class="phase-progress-pill">${progressPercent}%</span>
-          ${state.editMode ? `
-            <button class="btn-secondary btn-sm edit-phase-btn" data-phase="${phase.number}" title="Edit phase">Edit</button>
-            <button class="btn-danger btn-sm archive-phase-btn" data-phase="${phase.number}" title="Archive phase">Archive</button>
-          ` : ""}
+          <button class="btn-secondary btn-sm edit-phase-btn" data-phase="${phase.number}" title="Edit phase" style="padding: 4px 10px; font-size: 0.75rem;">Edit</button>
           <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </div>
       </div>
@@ -465,9 +450,7 @@ function renderPhaseCard(phase) {
         <div class="phase-section-block">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <h3 class="phase-section-title" style="margin-bottom: 0;">Topics (${totalTopics})</h3>
-            ${state.editMode ? `
-              <button class="btn-secondary btn-sm add-topic-btn" data-phase="${phase.number}">+ Add Topic</button>
-            ` : ""}
+            <button class="btn-secondary btn-sm add-topic-btn" data-phase="${phase.number}" style="padding: 4px 10px; font-size: 0.75rem;">+ Add Topic</button>
           </div>
 
           <table class="topics-table">
@@ -497,9 +480,7 @@ function renderPhaseCard(phase) {
                   </td>
                   <td style="text-align: right; white-space: nowrap;">
                     <button class="btn-secondary btn-sm view-topic-btn" data-phase="${phase.number}" data-topic="${t.id}">Details</button>
-                    ${state.editMode ? `
-                      <button class="btn-danger btn-sm delete-topic-btn" data-phase="${phase.number}" data-topic="${t.id}">Delete</button>
-                    ` : ""}
+                    <button class="btn-secondary btn-sm edit-topic-btn" data-phase="${phase.number}" data-topic="${t.id}" title="Edit topic">Edit</button>
                   </td>
                 </tr>
               `).join("") : `
@@ -672,7 +653,6 @@ function renderSkills(container) {
             <div style="display: flex; align-items: center; gap: 6px;">
               <span class="status-badge ${skill.progress >= 80 ? "completed" : "in-progress"}">${escapeHtml(skill.level)}</span>
               <button class="btn-secondary btn-sm edit-skill-btn" data-id="${skill.id}" title="Edit skill">Edit</button>
-              <button class="btn-danger btn-sm delete-skill-btn" data-id="${skill.id}" title="Delete skill">✕</button>
             </div>
           </div>
 
@@ -707,6 +687,10 @@ function renderSkills(container) {
 
 function openSkillModal(skillId = null) {
   const modal = document.getElementById("editSkillModalBackdrop");
+  const deleteBtn = document.getElementById("deleteSkillModalBtn");
+  if (deleteBtn) {
+    deleteBtn.style.display = skillId ? "inline-flex" : "none";
+  }
   const heading = document.getElementById("skillModalHeading");
   const formId = document.getElementById("skillFormId");
   const name = document.getElementById("skillFormName");
@@ -775,7 +759,6 @@ function renderTechnologies(container) {
             <div style="display: flex; align-items: center; gap: 6px;">
               <span class="status-badge ${tech.status === "Mastered" ? "completed" : "in-progress"}">${escapeHtml(tech.status)}</span>
               <button class="btn-secondary btn-sm edit-tech-btn" data-id="${tech.id}" title="Edit technology">Edit</button>
-              <button class="btn-danger btn-sm delete-tech-btn" data-id="${tech.id}" title="Delete technology">✕</button>
             </div>
           </div>
           <p style="font-size: 0.8125rem; color: var(--text-secondary); margin: 6px 0;">${escapeHtml(tech.note || "")}</p>
@@ -806,6 +789,10 @@ function renderTechnologies(container) {
 
 function openTechModal(techId = null) {
   const modal = document.getElementById("editTechModalBackdrop");
+  const deleteBtn = document.getElementById("deleteTechModalBtn");
+  if (deleteBtn) {
+    deleteBtn.style.display = techId ? "inline-flex" : "none";
+  }
   const heading = document.getElementById("techModalHeading");
   const formId = document.getElementById("techFormId");
   const name = document.getElementById("techFormName");
@@ -1141,7 +1128,6 @@ function renderJobReadiness(container) {
                 </label>
                 <div style="display: flex; gap: 4px;">
                   <button class="btn-secondary btn-sm edit-readiness-btn" data-cat="${catIdx}" data-id="${item.id}">Edit</button>
-                  <button class="btn-danger btn-sm delete-readiness-btn" data-cat="${catIdx}" data-id="${item.id}">✕</button>
                 </div>
               </div>
             `).join("")}
@@ -1185,6 +1171,10 @@ function renderJobReadiness(container) {
 
 function openReadinessModal(catIdx = null, itemId = null) {
   const modal = document.getElementById("editReadinessModalBackdrop");
+  const deleteBtn = document.getElementById("deleteReadinessModalBtn");
+  if (deleteBtn) {
+    deleteBtn.style.display = (catIdx !== null && itemId) ? "inline-flex" : "none";
+  }
   const heading = document.getElementById("readinessModalHeading");
   const categorySelect = document.getElementById("readinessFormCategory");
   const textInput = document.getElementById("readinessFormText");
@@ -1599,6 +1589,10 @@ function updateTopicStatus(phaseNumber, topicId, newStatus) {
    ========================================================================== */
 function openPhaseModal(phaseNumber = null) {
   const modal = document.getElementById("editPhaseModalBackdrop");
+  const deleteBtn = document.getElementById("deletePhaseModalBtn");
+  if (deleteBtn) {
+    deleteBtn.style.display = phaseNumber !== null ? "inline-flex" : "none";
+  }
   const heading = document.getElementById("phaseModalHeading");
   const formId = document.getElementById("phaseFormId");
   const title = document.getElementById("phaseFormTitle");
@@ -1657,6 +1651,10 @@ function archivePhase(phaseNumber) {
    ========================================================================== */
 function openTopicEditModal(phaseNumber, topicId = null) {
   const modal = document.getElementById("editTopicModalBackdrop");
+  const deleteBtn = document.getElementById("deleteTopicModalBtn");
+  if (deleteBtn) {
+    deleteBtn.style.display = topicId ? "inline-flex" : "none";
+  }
   const phaseInput = document.getElementById("topicFormPhaseId");
   const topicIdInput = document.getElementById("topicFormId");
   const heading = document.getElementById("topicModalHeading");
@@ -1899,6 +1897,99 @@ function init() {
   }
   document.getElementById("closePhaseModalBtn")?.addEventListener("click", closePhaseModal);
   document.getElementById("cancelPhaseModalBtn")?.addEventListener("click", closePhaseModal);
+
+  // Delete Phase inside Phase Modal
+  document.getElementById("deletePhaseModalBtn")?.addEventListener("click", () => {
+    const formId = document.getElementById("phaseFormId").value;
+    if (!formId) return;
+    const idx = state.data.phases.findIndex(p => p.id === formId);
+    if (idx === -1) return;
+    const phase = state.data.phases[idx];
+    if (confirm(`Delete Phase ${phase.number}: "${phase.title}" and all its topics?`)) {
+      state.data.phases.splice(idx, 1);
+      state.save();
+      closePhaseModal();
+      showToast(`Phase ${phase.number} deleted.`);
+      renderActiveView();
+    }
+  });
+
+  // Delete Topic inside Topic Modal
+  document.getElementById("deleteTopicModalBtn")?.addEventListener("click", () => {
+    const phaseNum = parseInt(document.getElementById("topicFormPhaseId").value);
+    const topicId = document.getElementById("topicFormId").value;
+    const phase = state.data.phases.find(p => p.number === phaseNum);
+    if (!phase || !phase.topics) return;
+    const idx = phase.topics.findIndex(t => t.id === topicId);
+    if (idx === -1) return;
+    const topic = phase.topics[idx];
+    if (confirm(`Delete Topic "${topic.title}"?`)) {
+      phase.topics.splice(idx, 1);
+      state.save();
+      closeTopicEditModal();
+      showToast(`Topic "${topic.title}" deleted.`);
+      renderActiveView();
+    }
+  });
+
+  // Delete Skill inside Skill Modal
+  document.getElementById("deleteSkillModalBtn")?.addEventListener("click", () => {
+    const id = document.getElementById("skillFormId").value;
+    if (!id) return;
+    const idx = state.data.skills.findIndex(s => s.id === id);
+    if (idx === -1) return;
+    const skill = state.data.skills[idx];
+    if (confirm(`Delete skill "${skill.name}"?`)) {
+      state.data.skills.splice(idx, 1);
+      state.save();
+      closeSkillModal();
+      showToast(`Skill "${skill.name}" deleted.`);
+      renderActiveView();
+    }
+  });
+
+  // Delete Technology inside Tech Modal
+  document.getElementById("deleteTechModalBtn")?.addEventListener("click", () => {
+    const id = document.getElementById("techFormId").value;
+    if (!id) return;
+    const idx = state.data.technologies.findIndex(t => t.id === id);
+    if (idx === -1) return;
+    const tech = state.data.technologies[idx];
+    if (confirm(`Delete technology "${tech.name}"?`)) {
+      state.data.technologies.splice(idx, 1);
+      state.save();
+      closeTechModal();
+      showToast(`Technology "${tech.name}" deleted.`);
+      renderActiveView();
+    }
+  });
+
+  // Delete Readiness Criterion inside Readiness Modal
+  document.getElementById("deleteReadinessModalBtn")?.addEventListener("click", () => {
+    const catIdx = parseInt(document.getElementById("readinessFormCategory").value);
+    const itemId = document.getElementById("readinessFormItemId").value;
+    const category = state.data.jobReadinessChecklist[catIdx];
+    if (!category || !itemId) return;
+    const idx = category.items.findIndex(i => i.id === itemId);
+    if (idx === -1) return;
+    if (confirm(`Delete criterion "${category.items[idx].text}"?`)) {
+      category.items.splice(idx, 1);
+      state.save();
+      closeReadinessModal();
+      showToast("Criterion deleted.");
+      renderActiveView();
+    }
+  });
+
+  // Quick Edit button inside Topic Details Drawer
+  document.getElementById("modalEditTopicContentBtn")?.addEventListener("click", () => {
+    if (state.activePhaseId !== null && state.activeTopic) {
+      const pNum = state.activePhaseId;
+      const tId = state.activeTopic.id;
+      closeTopicModal();
+      openTopicEditModal(pNum, tId);
+    }
+  });
 
   // Topic Form Submit
   const topicForm = document.getElementById("topicForm");
