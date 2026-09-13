@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Junior Full Stack .NET Developer Roadmap & Learning Management System</title>
+  <meta name="description" content="A structured, interactive, and fully editable personal learning roadmap and dashboard for aspiring Junior Full Stack .NET developers." />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <div class="sidebar-header">
+        <div class="brand">
+          <span class="brand-title">.NET Learning OS</span>
+          <span class="brand-subtitle">Junior Full Stack Roadmap</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-section-title">Overview</span>
+        <a href="#dashboard" class="nav-item active" data-route="dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#roadmap" class="nav-item" data-route="roadmap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+          <span>Roadmap & Phases</span>
+          <span class="nav-badge" id="navPhaseCount">24</span>
+        </a>
+        <a href="#projects" class="nav-item" data-route="projects">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+          <span>Projects & Capstone</span>
+          <span class="nav-badge" id="navProjectCount">5</span>
+        </a>
+
+        <span class="nav-section-title">Knowledge & Skills</span>
+        <a href="#skills" class="nav-item" data-route="skills">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+          <span>Skills Tracker</span>
+        </a>
+        <a href="#technologies" class="nav-item" data-route="technologies">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>Tech Stack Tracker</span>
+        </a>
+        <a href="#reviews" class="nav-item" data-route="reviews">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+          <span>Spaced Reviews</span>
+        </a>
+
+        <span class="nav-section-title">Practice & Career</span>
+        <a href="#study-plan" class="nav-item" data-route="study-plan">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Study Plan & Hours</span>
+        </a>
+        <a href="#interview" class="nav-item" data-route="interview">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+          <span>Interview Questions</span>
+        </a>
+        <a href="#readiness" class="nav-item" data-route="readiness">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Job Readiness</span>
+        </a>
+        <a href="#notes-resources" class="nav-item" data-route="notes-resources">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+          <span>Notes & Resources</span>
+        </a>
+
+        <span class="nav-section-title">System</span>
+        <a href="#archive" class="nav-item" data-route="archive">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
+          <span>Archive</span>
+        </a>
+        <a href="#settings" class="nav-item" data-route="settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>Settings & Backup</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="edit-mode-toggle">
+          <span>Edit Mode</span>
+          <label class="switch" title="Toggle Edit Mode to customize, add, and reorder roadmap content">
+            <input type="checkbox" id="editModeSwitch" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div style="margin-top: 10px; font-size: 0.75rem; color: var(--text-tertiary); display: flex; flex-direction: column; gap: 4px;">
+          <span>&copy; Mahmoud Abd_Elbakey</span>
+          <a href="https://www.linkedin.com/in/mahmoud-abd-elbakey" target="_blank" rel="noopener noreferrer" style="color: var(--accent); display: inline-flex; align-items: center; gap: 4px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn Profile
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+          <div class="search-container">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="search" id="globalSearchInput" class="search-input" placeholder="Search phases, topics, projects..." aria-label="Global search" />
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light and Dark Theme">
+            <svg id="themeIconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <span id="themeLabel">Theme</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- View Container -->
+      <main class="content-container" id="mainContainer">
+        <!-- Rendered dynamically by app.js router -->
+      </main>
+
+      <!-- App Footer -->
+      <footer class="app-footer">
+        <div class="footer-author">
+          <span>&copy; Mahmoud Abd_Elbakey &bull; Junior Full Stack .NET Developer Platform</span>
+        </div>
+        <a href="https://www.linkedin.com/in/mahmoud-abd-elbakey" target="_blank" rel="noopener noreferrer" class="footer-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/mahmoud-abd-elbakey
+        </a>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Universal Topic Detail Drawer / Modal -->
+  <div class="modal-backdrop" id="topicModalBackdrop" role="dialog" aria-modal="true">
+    <div class="modal-container" id="topicModalContainer">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h2 class="modal-title" id="modalTopicTitle">Topic Title</h2>
+          <span class="modal-subtitle" id="modalTopicMeta">Phase 0 • Beginner</span>
+        </div>
+        <button class="modal-close-btn" id="closeTopicModalBtn" aria-label="Close topic modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body" id="modalTopicBody">
+        <!-- Dynamically injected topic content -->
+      </div>
+
+      <div class="modal-footer">
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <label for="modalTopicStatusSelect" style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Status:</label>
+          <select id="modalTopicStatusSelect" class="form-select" style="padding: 4px 8px; font-size: 0.8125rem;">
+            <option value="not-started">Not Started</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="needs-review">Needs Review</option>
+            <option value="skipped">Skipped</option>
+          </select>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-secondary btn-sm" id="modalAddNoteBtn">Add Note</button>
+          <button class="btn-primary btn-sm" id="modalSaveTopicBtn">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Phase Modal -->
+  <div class="modal-backdrop" id="editPhaseModalBackdrop" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 580px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="phaseModalHeading">Add New Phase</h2>
+        <button class="modal-close-btn" id="closePhaseModalBtn" aria-label="Close phase modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <form id="phaseForm" class="modal-body">
+        <input type="hidden" id="phaseFormId" />
+        <div class="form-group">
+          <label class="form-label" for="phaseFormTitle">Phase Title</label>
+          <input type="text" id="phaseFormTitle" class="form-input" required placeholder="e.g. Cloud Fundamentals & Docker" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phaseFormDesc">Short Description</label>
+          <textarea id="phaseFormDesc" class="form-textarea" rows="2" placeholder="Summary of what this phase covers..."></textarea>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label class="form-label" for="phaseFormDifficulty">Difficulty</label>
+            <select id="phaseFormDifficulty" class="form-select">
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phaseFormHours">Estimated Study Hours</label>
+            <input type="number" id="phaseFormHours" class="form-input" min="1" value="25" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phaseFormTech">Technologies (comma separated)</label>
+          <input type="text" id="phaseFormTech" class="form-input" placeholder="e.g. Docker, Azure, GitHub Actions" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phaseFormObjectives">Key Learning Objectives (one per line)</label>
+          <textarea id="phaseFormObjectives" class="form-textarea" rows="3" placeholder="Understand containerization&#10;Write Dockerfiles"></textarea>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary btn-sm" id="cancelPhaseModalBtn">Cancel</button>
+        <button type="submit" form="phaseForm" class="btn-primary btn-sm">Save Phase</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Topic Modal -->
+  <div class="modal-backdrop" id="editTopicModalBackdrop" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 680px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="topicModalHeading">Add Topic</h2>
+        <button class="modal-close-btn" id="closeEditTopicModalBtn" aria-label="Close edit topic modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <form id="topicForm" class="modal-body">
+        <input type="hidden" id="topicFormPhaseId" />
+        <input type="hidden" id="topicFormId" />
+        <div class="form-group">
+          <label class="form-label" for="topicFormTitle">Topic Title</label>
+          <input type="text" id="topicFormTitle" class="form-input" required placeholder="e.g. Docker Multi-Stage Builds" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="topicFormSubtopics">Subtopics (comma separated)</label>
+          <input type="text" id="topicFormSubtopics" class="form-input" placeholder="e.g. Build stage, Runtime stage, Image size optimization" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="topicFormWhat">What is it?</label>
+          <textarea id="topicFormWhat" class="form-textarea" rows="2" placeholder="Clear explanation..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="topicFormWhy">Why do we need it?</label>
+          <textarea id="topicFormWhy" class="form-textarea" rows="2" placeholder="Why it matters..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="topicFormWhen">When to use it?</label>
+          <textarea id="topicFormWhen" class="form-textarea" rows="2" placeholder="Practical context..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="topicFormCode">Code Example</label>
+          <textarea id="topicFormCode" class="form-textarea" rows="3" style="font-family: var(--font-mono); font-size: 0.75rem;" placeholder="// C# or Docker snippet"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="topicFormMistakes">Common Mistakes</label>
+          <textarea id="topicFormMistakes" class="form-textarea" rows="2" placeholder="Common pitfalls to avoid..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="topicFormExercise">Mini Exercise</label>
+          <textarea id="topicFormExercise" class="form-textarea" rows="2" placeholder="Actionable exercise..."></textarea>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary btn-sm" id="cancelEditTopicModalBtn">Cancel</button>
+        <button type="submit" form="topicForm" class="btn-primary btn-sm">Save Topic</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Skill Modal -->
+  <div class="modal-backdrop" id="editSkillModalBackdrop" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 500px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="skillModalHeading">Add / Edit Skill</h2>
+        <button class="modal-close-btn" id="closeSkillModalBtn" aria-label="Close skill modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <form id="skillForm" class="modal-body">
+        <input type="hidden" id="skillFormId" />
+        <div class="form-group">
+          <label class="form-label" for="skillFormName">Skill Name</label>
+          <input type="text" id="skillFormName" class="form-input" required placeholder="e.g. C# Asynchronous Programming" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="skillFormCategory">Category</label>
+          <select id="skillFormCategory" class="form-select">
+            <option value="Programming">Programming</option>
+            <option value="Backend">Backend</option>
+            <option value="Database">Database</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Architecture">Architecture</option>
+            <option value="Security">Security</option>
+            <option value="Testing">Testing</option>
+            <option value="DevOps">DevOps</option>
+            <option value="Tools">Tools</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="skillFormLevel">Proficiency Level</label>
+          <select id="skillFormLevel" class="form-select">
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Mastered">Mastered</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="skillFormProgress">Progress Percentage (0 - 100)</label>
+          <input type="number" id="skillFormProgress" class="form-input" min="0" max="100" value="0" />
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary btn-sm" id="cancelSkillModalBtn">Cancel</button>
+        <button type="submit" form="skillForm" class="btn-primary btn-sm">Save Skill</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Technology Modal -->
+  <div class="modal-backdrop" id="editTechModalBackdrop" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 500px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="techModalHeading">Add / Edit Technology</h2>
+        <button class="modal-close-btn" id="closeTechModalBtn" aria-label="Close tech modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <form id="techForm" class="modal-body">
+        <input type="hidden" id="techFormId" />
+        <div class="form-group">
+          <label class="form-label" for="techFormName">Technology Name</label>
+          <input type="text" id="techFormName" class="form-input" required placeholder="e.g. Docker, Redis, MediatR" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="techFormCategory">Category</label>
+          <input type="text" id="techFormCategory" class="form-input" placeholder="e.g. Containerization, Cache, Library" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="techFormStatus">Status</label>
+          <select id="techFormStatus" class="form-select">
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Proficient">Proficient</option>
+            <option value="Mastered">Mastered</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="techFormProgress">Progress Percentage (0 - 100)</label>
+          <input type="number" id="techFormProgress" class="form-input" min="0" max="100" value="0" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="techFormNote">Personal Note</label>
+          <input type="text" id="techFormNote" class="form-input" placeholder="e.g. Using for caching repository results" />
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary btn-sm" id="cancelTechModalBtn">Cancel</button>
+        <button type="submit" form="techForm" class="btn-primary btn-sm">Save Technology</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Job Readiness Criteria Modal -->
+  <div class="modal-backdrop" id="editReadinessModalBackdrop" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 520px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="readinessModalHeading">Add Readiness Criteria</h2>
+        <button class="modal-close-btn" id="closeReadinessModalBtn" aria-label="Close readiness modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <form id="readinessForm" class="modal-body">
+        <input type="hidden" id="readinessFormCatIdx" />
+        <input type="hidden" id="readinessFormItemId" />
+        <div class="form-group">
+          <label class="form-label" for="readinessFormCategory">Category</label>
+          <select id="readinessFormCategory" class="form-select"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="readinessFormText">Criterion Description</label>
+          <textarea id="readinessFormText" class="form-textarea" required rows="3" placeholder="e.g. Can configure and run database migrations in production CI/CD"></textarea>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary btn-sm" id="cancelReadinessModalBtn">Cancel</button>
+        <button type="submit" form="readinessForm" class="btn-primary btn-sm">Save Criterion</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Project GitHub Repo Modal -->
+  <div class="modal-backdrop" id="editProjectRepoModalBackdrop" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 500px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="projectRepoModalHeading">Project GitHub Repository</h2>
+        <button class="modal-close-btn" id="closeProjectRepoModalBtn" aria-label="Close project repo modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <form id="projectRepoForm" class="modal-body">
+        <input type="hidden" id="projectRepoFormId" />
+        <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 8px;">
+          Paste your GitHub repository URL once you publish this project:
+        </p>
+        <div class="form-group">
+          <label class="form-label" for="projectRepoUrl">GitHub URL</label>
+          <input type="url" id="projectRepoUrl" class="form-input" placeholder="https://github.com/mahmoudabdelbakey/MyProject" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="projectDeploymentStatus">Deployment Status</label>
+          <input type="text" id="projectDeploymentStatus" class="form-input" placeholder="e.g. Deployed on Render / Azure" />
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary btn-sm" id="cancelProjectRepoModalBtn">Cancel</button>
+        <button type="submit" form="projectRepoForm" class="btn-primary btn-sm">Save Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Core Application Logic (Works seamlessly via file:// and http://) -->
+  <script src="js/data/initialData.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
