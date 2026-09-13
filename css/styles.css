@@ -1474,3 +1474,55 @@ code, pre {
   margin-left: auto;
   flex-shrink: 0;
 }
+
+/* Subtopics Cell & Expandable Toggle */
+.subtopics-cell {
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  max-width: 440px;
+}
+
+.subtopics-preview {
+  display: inline;
+}
+
+.subtopics-full {
+  display: inline;
+  color: var(--text-primary);
+}
+
+.toggle-subtopics-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--bg-surface-secondary);
+  color: var(--accent);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 1px 7px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 6px;
+  white-space: nowrap;
+  vertical-align: baseline;
+  transition: all 0.15s ease;
+}
+
+.toggle-subtopics-btn:hover {
+  background-color: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+.toggle-subtopics-btn.expanded {
+  background-color: transparent;
+  color: var(--text-tertiary);
+  border-color: transparent;
+  text-decoration: underline;
+}
+
+.toggle-subtopics-btn.expanded:hover {
+  color: var(--accent);
+  background-color: transparent;
+}

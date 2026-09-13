@@ -335,10 +335,16 @@ function renderRoadmap(container) {
         <h1 class="page-title">Curriculum Roadmap (Phases 0 to 23)</h1>
         <p class="page-description">Complete curriculum from beginner foundations to full stack integration. Everything is editable in Edit Mode.</p>
       </div>
-      <button class="btn-primary" id="addNewPhaseBtn">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn-secondary" id="globalToggleSubtopicsBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+          Expand All Subtopics
+        </button>
+        <button class="btn-primary" id="addNewPhaseBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           + Add New Phase
         </button>
+      </div>
     </header>
 
     <div class="phase-list" id="phaseListContainer">
@@ -402,6 +408,108 @@ function renderRoadmap(container) {
       openTopicEditModal(phaseNum, topicId);
     });
   });
+
+  // Toggle single topic subtopics
+  container.querySelectorAll(".toggle-subtopics-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wrapper = btn.closest(".subtopics-wrapper");
+      if (!wrapper) return;
+      const preview = wrapper.querySelector(".subtopics-preview");
+      const full = wrapper.querySelector(".subtopics-full");
+      const isExpanded = full && full.style.display !== "none";
+
+      if (isExpanded) {
+        full.style.display = "none";
+        preview.style.display = "inline";
+        btn.textContent = btn.getAttribute("data-more-text") || "Show more";
+        btn.classList.remove("expanded");
+      } else {
+        preview.style.display = "none";
+        full.style.display = "inline";
+        btn.textContent = "Show less";
+        btn.classList.add("expanded");
+      }
+    });
+  });
+
+  // Toggle all subtopics in a specific phase
+  container.querySelectorAll(".toggle-all-subtopics-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const phaseCard = btn.closest(".phase-card");
+      if (!phaseCard) return;
+      const isExpanded = btn.getAttribute("data-expanded") === "true";
+      const nextState = !isExpanded;
+      btn.setAttribute("data-expanded", nextState ? "true" : "false");
+      btn.innerHTML = nextState
+        ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="m17 9-5-5-5 5"/><path d="m17 15-5 5-5-5"/></svg> Collapse Subtopics'
+        : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg> Show All Subtopics';
+
+      phaseCard.querySelectorAll(".subtopics-wrapper").forEach(wrapper => {
+        const preview = wrapper.querySelector(".subtopics-preview");
+        const full = wrapper.querySelector(".subtopics-full");
+        const rowBtn = wrapper.querySelector(".toggle-subtopics-btn");
+        if (nextState) {
+          if (preview) preview.style.display = "none";
+          if (full) full.style.display = "inline";
+          if (rowBtn) {
+            rowBtn.textContent = "Show less";
+            rowBtn.classList.add("expanded");
+          }
+        } else {
+          if (preview) preview.style.display = "inline";
+          if (full) full.style.display = "none";
+          if (rowBtn) {
+            rowBtn.textContent = rowBtn.getAttribute("data-more-text") || "Show more";
+            rowBtn.classList.remove("expanded");
+          }
+        }
+      });
+    });
+  });
+
+  // Global toggle for all phases at once
+  const globalToggleBtn = container.querySelector("#globalToggleSubtopicsBtn");
+  if (globalToggleBtn) {
+    globalToggleBtn.addEventListener("click", () => {
+      const isExpanded = globalToggleBtn.getAttribute("data-expanded") === "true";
+      const nextState = !isExpanded;
+      globalToggleBtn.setAttribute("data-expanded", nextState ? "true" : "false");
+      globalToggleBtn.innerHTML = nextState
+        ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="m17 9-5-5-5 5"/><path d="m17 15-5 5-5-5"/></svg> Collapse All Subtopics'
+        : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg> Expand All Subtopics';
+
+      container.querySelectorAll(".subtopics-wrapper").forEach(wrapper => {
+        const preview = wrapper.querySelector(".subtopics-preview");
+        const full = wrapper.querySelector(".subtopics-full");
+        const rowBtn = wrapper.querySelector(".toggle-subtopics-btn");
+        if (nextState) {
+          if (preview) preview.style.display = "none";
+          if (full) full.style.display = "inline";
+          if (rowBtn) {
+            rowBtn.textContent = "Show less";
+            rowBtn.classList.add("expanded");
+          }
+        } else {
+          if (preview) preview.style.display = "inline";
+          if (full) full.style.display = "none";
+          if (rowBtn) {
+            rowBtn.textContent = rowBtn.getAttribute("data-more-text") || "Show more";
+            rowBtn.classList.remove("expanded");
+          }
+        }
+      });
+
+      // Synchronize phase-level buttons
+      container.querySelectorAll(".toggle-all-subtopics-btn").forEach(pBtn => {
+        pBtn.setAttribute("data-expanded", nextState ? "true" : "false");
+        pBtn.innerHTML = nextState
+          ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="m17 9-5-5-5 5"/><path d="m17 15-5 5-5-5"/></svg> Collapse Subtopics'
+          : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg> Show All Subtopics';
+      });
+    });
+  }
 }
 
 function renderPhaseCard(phase) {
@@ -448,9 +556,15 @@ function renderPhaseCard(phase) {
         ` : ""}
 
         <div class="phase-section-block">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
             <h3 class="phase-section-title" style="margin-bottom: 0;">Topics (${totalTopics})</h3>
-            <button class="btn-secondary btn-sm add-topic-btn" data-phase="${phase.number}" style="padding: 4px 10px; font-size: 0.75rem;">+ Add Topic</button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button type="button" class="btn-secondary btn-sm toggle-all-subtopics-btn" data-phase="${phase.number}" style="padding: 4px 10px; font-size: 0.75rem;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                Show All Subtopics
+              </button>
+              <button class="btn-secondary btn-sm add-topic-btn" data-phase="${phase.number}" style="padding: 4px 10px; font-size: 0.75rem;">+ Add Topic</button>
+            </div>
           </div>
 
           <table class="topics-table">
@@ -467,7 +581,26 @@ function renderPhaseCard(phase) {
               ${phase.topics && phase.topics.length > 0 ? phase.topics.map(t => `
                 <tr>
                   <td style="font-weight: 600; color: var(--text-primary);">${escapeHtml(t.title)}</td>
-                  <td style="color: var(--text-secondary);">${t.subtopics ? t.subtopics.slice(0, 3).map(s => escapeHtml(s)).join(", ") + (t.subtopics.length > 3 ? "..." : "") : "-"}</td>
+                  <td class="subtopics-cell">
+                    ${(() => {
+                      if (!t.subtopics || t.subtopics.length === 0) return '<span style="color: var(--text-tertiary);">-</span>';
+                      if (t.subtopics.length <= 3) {
+                        return '<span>' + t.subtopics.map(s => escapeHtml(s)).join(", ") + '</span>';
+                      }
+                      const preview = t.subtopics.slice(0, 3).map(s => escapeHtml(s)).join(", ");
+                      const full = t.subtopics.map(s => escapeHtml(s)).join(", ");
+                      const moreCount = t.subtopics.length - 3;
+                      return `
+                        <div class="subtopics-wrapper" data-topic-id="${t.id}">
+                          <span class="subtopics-preview">${preview}...</span>
+                          <span class="subtopics-full" style="display: none;">${full}</span>
+                          <button type="button" class="toggle-subtopics-btn" data-topic-id="${t.id}" data-more-text="+${moreCount} more" data-remaining="${moreCount}" title="Click to show all subtopics">
+                            +${moreCount} more
+                          </button>
+                        </div>
+                      `;
+                    })()}
+                  </td>
                   <td><span style="font-size: 0.75rem; color: var(--text-secondary);">${escapeHtml(t.difficulty || "Beginner")}</span></td>
                   <td>
                     <select class="form-select quick-topic-status-select" data-phase="${phase.number}" data-topic="${t.id}" style="padding: 2px 6px; font-size: 0.75rem;">
